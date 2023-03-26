@@ -24,6 +24,25 @@
   color: white;
 }
 
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.page-item {
+  margin-right: 5px;
+}
+
+.page-link {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 5px;
+  outline: none;
+}
+
+
 .App-link {
   color: #61dafb;
 }
