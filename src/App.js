@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+
 function App() {
   const [municipios, setMunicipios] = useState([]);
   const [paginaAtual, setPaginaAtual] = useState(1);
@@ -15,6 +16,17 @@ function App() {
       console.error(error);
     }
   }
+  async function buscarMunicipiosPorCidade() {
+    try {
+      const uf = document.getElementById('select-estado').value;
+      const cidade = document.getElementById('input-cidade').value;
+      const response = await axios.get(`http://localhost:8000/municipios/${uf}/${cidade}`);
+      setMunicipios(response.data);
+      setPaginaAtual(1);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const municipiosPorPagina = 10;
   const indiceInicial = (paginaAtual - 1) * municipiosPorPagina;
@@ -23,16 +35,27 @@ function App() {
 
   return (
     <div>
-      <label htmlFor="select-estado">Selecione um estado:</label>
-      <select id="select-estado" onChange={(e) => buscarMunicipios(e.target.value)}>
-        <option value="">Selecione...</option>
-        {estados.map((estado) => (
-          <option key={estado} value={estado}>
-            {estado}
-          </option>
-        ))}
-      </select>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="col-sm-6">
+            <label htmlFor="select-estado">Selecione um estado:</label>
+            <select id="select-estado" onChange={(e) => buscarMunicipios(e.target.value)}>
+              <option value="">Selecione...</option>
+              {estados.map((estado) => (
+                <option key={estado} value={estado}>
+                  {estado}
+                </option>
+              ))}
+            </select>
+          </div>
 
+          <div class="col-sm-6">
+            <label htmlFor="input-cidade">Pesquisar por cidade:</label>
+            <input id="input-cidade" type="text" placeholder="Digite o nome da cidade" />
+            <button onClick={buscarMunicipiosPorCidade}>Pesquisar</button>
+          </div>
+        </div>
+      </div>
       <table className="table">
         <thead>
           <tr>
