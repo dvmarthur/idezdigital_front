@@ -39,7 +39,7 @@ function App() {
         <div class="col-sm-12">
           <div class="col-sm-6">
             <label htmlFor="select-estado">Selecione um estado:</label>
-            <select id="select-estado" onChange={(e) => buscarMunicipios(e.target.value)}>
+            <select id="select-estado">
               <option value="">Selecione...</option>
               {estados.map((estado) => (
                 <option key={estado} value={estado}>
